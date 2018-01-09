@@ -9,13 +9,17 @@
   Experiment runs 2000 runs, each 1000 steps, of an n-armed bandit problem
 """
 
-# from rl_glue import *  # Required for RL-Glue
-from Reinforcement-Learning-An-Introduction.rl_glue import *
-# RLGlue("w1_env", "w1_agent")
+
+#Add path
+import sys
+sys.path.insert(0, '../../tool')
+sys.path.insert(0, '../env')
+
+from rl_glue_bandit import *  # Required for RL-Glue
 RLGlue("10_armed_testbed_env", "2_3_agent")
 
 import numpy as np
-import sys
+import matplotlib.pyplot as plt
 
  # data: floating point, data_size: integer, filename: string
 def save_results(data, data_size, filename):
@@ -24,7 +28,6 @@ def save_results(data, data_size, filename):
             data_file.write("{0} ".format(data[0][i]))
             data_file.write("{0}\n".format(data[1][i]))
 
-    
 def getOptimalAction():
 	return int(RL_env_message("get optimal action"))
 
@@ -56,7 +59,6 @@ if __name__ == "__main__":
                 
                 if action[0] == best_action:
                     optimal_action[row][i] = optimal_action[row][i] + 1
-                
 
             RL_cleanup()
             print ".",
@@ -64,3 +66,6 @@ if __name__ == "__main__":
 
     save_results(optimal_action / num_runs, max_steps, "RL_EXP_OUT.dat")
     print "\nDone"
+
+
+
